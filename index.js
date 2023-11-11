@@ -26,11 +26,12 @@ async function searchGameSessions(targetAliasARN) {
 
     const command = new SearchGameSessionsCommand(searchGameSessionsRequest);
     try {
-        const data = await gameLiftClient.send(command);
+        const sessions = await gameLiftClient.send(command);
+        console.log(`Sessions:\n${JSON.stringify(sessions, null, 2)}`);
 
-        if (data.GameSessions && data.GameSessions.length > 0) {
+        if (sessions.GameSessions && sessions.GameSessions.length > 0) {
             console.log("We have game sessions");
-            return data.GameSessions[0]
+            return sessions.GameSessions[0]
         }
         else {
             console.log("No game sessions");
@@ -41,22 +42,6 @@ async function searchGameSessions(targetAliasARN) {
         console.log(error);
         return null;
     }
-
-    // return await gameLiftClient.send(command).promise().then(data => {
-    //     // console.log(data);
-
-    //     if (data.GameSessions && data.GameSessions.length > 0) {
-    //         console.log("We have game sessions");
-    //         return data.GameSessions[0]
-    //     }
-    //     else {
-    //         console.log("No game sessions");
-    //         return null;
-    //     }
-    // }).catch(err => {
-    //     console.log(err);
-    //     return null;
-    // });
 }
 
 async function getActiveQueue() {
@@ -91,30 +76,6 @@ async function getActiveQueue() {
         return [];
     }
 
-    // return await gameLiftClient.send(command).promise().then(data => {
-    //     // console.log(data);
-        
-    //     if (data.GameSessionQueues && data.GameSessionQueues.length > 0) {
-    //         // for now just grab the first Queue
-    //         console.log("We have some queues");
-            
-    //         // if multiple queues, need to refactor this
-    //         let selectedGameSessionQueue;
-    //         data.GameSessionQueues.forEach(gameSessionQueue => {
-    //             if (gameSessionQueue.Name == TARGET_GAMELIFT_QUEUE_NAME) {
-    //                 selectedGameSessionQueue = gameSessionQueue;
-    //             }
-    //         });
-    //         return selectedGameSessionQueue;
-    //     }
-    //     else {
-    //         console.log("No queues available");
-    //         return [];
-    //     }
-    // }).catch(err => {
-    //     console.log(err);
-    //     return [];
-    // });
 }
 
 async function createGameSessionPlacement(targetQueueName, playerId) {
@@ -137,15 +98,6 @@ async function createGameSessionPlacement(targetQueueName, playerId) {
         console.log(error);
         return [];
     }
-    
-    // return await gameLiftClient.send(command).promise().then(data => {
-    //     // console.log(data);
-    //     return data;
-        
-    // }).catch(err => {
-    //     console.log(err);
-    //     return [];
-    // });
 }
 
 async function createPlayerSession(playerId, gameSessionId) {
@@ -162,14 +114,6 @@ async function createPlayerSession(playerId, gameSessionId) {
         console.log(error);
         return null;
     }
-    
-    // return await gameLiftClient.send(command).promise().then(data => {
-    //     // console.log(data);
-    //     return data;
-    // }).catch(err => {
-    //     console.log(err);
-    //     return null;
-    // });
 }
 
 // where the lambda execution starts
