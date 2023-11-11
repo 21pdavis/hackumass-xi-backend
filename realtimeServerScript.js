@@ -1,4 +1,5 @@
-﻿// Based on source: https://docs.aws.amazon.com/gamelift/latest/developerguide/realtime-script.html
+﻿// Created by @BatteryAcidDev
+// Based on source: https://docs.aws.amazon.com/gamelift/latest/developerguide/realtime-script.html
 // This is the script we upload to GameLift
 
 // Example Realtime Server Script
